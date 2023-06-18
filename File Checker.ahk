@@ -1,4 +1,4 @@
-﻿PROGRAM_LOCALIZATION()
+PROGRAM_LOCALIZATION()
 
 MyGui := Gui(, "File Checker")
 MyGui.Add("Text", "w215 h90", gui_info)
@@ -58,6 +58,14 @@ CHECK(*)
         temp_buffer.Push(A_LoopReadLine)
     }
 
+    if (!FileExist("settings.ini"))
+    {
+        open_folder := DirSelect("::{20d04fe0-3aea-1069-a2d8-08002b30309d}",, open_folder_text)
+        if (open_folder == "")
+            ExitApp()
+        IniWrite(open_folder, "settings.ini", "SteamPATH", "csgo")
+    }
+    
     open_folder := IniRead("settings.ini", "SteamPATH", "csgo")
 
     Result := MsgBox(sure_text open_folder "?",, "YesNo")
